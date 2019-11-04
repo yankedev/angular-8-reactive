@@ -1,5 +1,5 @@
 export class Talk {
   id: string;
-  title; string
+  title: string;
   speakers: string[];
 }

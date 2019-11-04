@@ -1,4 +1,4 @@
-<p>Search for a talk <input type="text" (keyup)="onKey($event)" placeholder="Search"/></p>
+<p>Search for a talk <input focus #talkSearchInput type="text" placeholder="Search"/></p>
 <p *ngFor="let talk of filteredTalks$ |async">
   {{talk |json}}
 </p>
