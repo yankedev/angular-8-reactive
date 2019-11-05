@@ -17,7 +17,6 @@ export class SearchComponent implements OnInit {
   constructor(private talkService: TalksService) { }
 
   ngOnInit() {
-    //this.filteredTalks$ = this.talkService.getTalks$();
     this.filteredTalks$ = combineLatest([this.talkService.getTalks$(), this.searchQuery$]).pipe(
       map(([talks, searchQuery]) => {
         // here we imperatively implement the filtering logic
@@ -30,9 +29,5 @@ export class SearchComponent implements OnInit {
       })
     );
 
-  }
-
-  onKey(event: any) { // without type info
-    this.searchQuery$.next(event.target.value);
   }
 }
