@@ -1,4 +1,6 @@
+
 import { Component, ViewChild, ElementRef, AfterViewInit, Input } from "@angular/core";
+import { FormControl } from '@angular/forms';
 import { TalksService } from "../talks.service";
 import {
   interval,
@@ -16,21 +18,16 @@ import { Talk } from "../talk";
   styleUrls: ["./search.component.css"]
 })
 export class SearchComponent implements AfterViewInit {
-  @ViewChild("talkSearchInput", { static: false }) queryInput: ElementRef;
+  queryInput = new FormControl('');
 
   filteredTalks$: Observable<Talk[]>;
 
   constructor(private talkService: TalksService) {}
 
   ngAfterViewInit() {
-    var query$ = fromEvent(this.queryInput.nativeElement, "keyup").pipe(
+    var query$ = this.queryInput.valueChanges.pipe(
       // combineLatest requires both streams emit to execute
-      startWith(""),
-      // get value
-      map((event: any) => {
-        if (event === "") return event;
-        return event.target.value;
-      })
+      startWith("")
     );
     
     this.filteredTalks$ = combineLatest([
